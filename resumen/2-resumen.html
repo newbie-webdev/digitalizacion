@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tema 2 — Tecnologías habilitadoras digitales</title>
+  <link rel="stylesheet" href="../estilos.css" />
+  <style>
+    :root {
+      --t2:        #534AB7;
+      --t2-light:  #EEEDFE;
+      --t2-mid:    #7068D4;
+      --t2-dark:   #1E1A5C;
+
+      /* una paleta por tecnología */
+      --c5g:      #0F766E; --c5g-l:   #CCFBF1; --c5g-b:   #5EEAD4;
+      --ccld:     #185FA5; --ccld-l:  #E0F2FE; --ccld-b:  #7DD3FC;
+      --cbig:     #DC2626; --cbig-l:  #FEE2E2; --cbig-b:  #FCA5A5;
+      --ccib:     #7C3AED; --ccib-l:  #EDE9FE; --ccib-b:  #C4B5FD;
+      --cblk:     #92400E; --cblk-l:  #FEF3C7; --cblk-b:  #FCD34D;
+      --cia:      #1A6B55; --cia-l:   #D1FAE5; --cia-b:   #6EE7B7;
+      --cvr:      #BE185D; --cvr-l:   #FCE7F3; --cvr-b:   #F9A8D4;
+      --ccob:     #B45309; --ccob-l:  #FEF3C7; --ccob-b:  #FCD34D;
+      --cgem:     #075985; --cgem-l:  #E0F2FE; --cgem-b:  #7DD3FC;
+      --c3d:      #065F46; --c3d-l:   #D1FAE5; --c3d-b:   #6EE7B7;
+      --ciot:     #6B21A8; --ciot-l:  #F3E8FF; --ciot-b:  #D8B4FE;
+
+      /* sectores */
+      --cs1:  #0F766E; --cs1-l: #CCFBF1; --cs1-b: #5EEAD4;
+      --cs2:  #B45309; --cs2-l: #FEF3C7; --cs2-b: #FCD34D;
+      --cs3:  #1D4ED8; --cs3-l: #DBEAFE; --cs3-b: #93C5FD;
+      --cs4:  #DC2626; --cs4-l: #FEE2E2; --cs4-b: #FCA5A5;
+      --cs5:  #065F46; --cs5-l: #D1FAE5; --cs5-b: #6EE7B7;
+
+      --radius: 12px;
+      --shadow: 0 2px 12px rgba(0,0,0,.07);
+    }
+
+    body { background:var(--color-background-tertiary); font-family:system-ui,-apple-system,sans-serif; padding:2rem 1rem 4rem; }
+    .page { max-width:880px; margin:0 auto; }
+
+    /* HERO */
+    .hero { background:linear-gradient(135deg,#1E1A5C 0%,#534AB7 55%,#7068D4 100%); border-radius:16px; padding:2rem 2rem 1.75rem; margin-bottom:2rem; color:#fff; position:relative; overflow:hidden; }
+    .hero::before { content:''; position:absolute; top:-30px; right:-30px; width:180px; height:180px; border-radius:50%; background:rgba(255,255,255,.06); }
+    .hero::after  { content:''; position:absolute; bottom:-50px; left:40px; width:110px; height:110px; border-radius:50%; background:rgba(255,255,255,.04); }
+    .hero-label { font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:#C4B5FD; margin-bottom:.45rem; }
+    .hero-title { font-size:1.65rem; font-weight:700; line-height:1.25; margin-bottom:.4rem; }
+    .hero-sub   { font-size:.88rem; color:#DDD6FE; opacity:.9; }
+
+    /* SECTION TITLE */
+    .sec-title { font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--t2); margin:1.75rem 0 .9rem; display:flex; align-items:center; gap:.5rem; }
+    .sec-title::after { content:''; flex:1; height:1px; background:var(--color-border-tertiary); }
+
+    /* CARD */
+    .card { background:var(--color-background-primary); border:0.5px solid var(--color-border-tertiary); border-radius:var(--radius); padding:1.1rem 1.2rem; box-shadow:var(--shadow); }
+
+    /* GRIDS */
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.85rem; }
+    @media(max-width:640px){ .grid2,.grid3{ grid-template-columns:1fr; } }
+
+    /* CHIP */
+    .chip { display:inline-flex; align-items:center; gap:.35rem; padding:.28rem .7rem; border-radius:999px; font-size:.74rem; font-weight:600; border:1.5px solid transparent; }
+
+    /* ── CARACTERÍSTICAS: rueda de 9 pills ── */
+    .caract-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; }
+    @media(max-width:560px){ .caract-grid{ grid-template-columns:1fr 1fr; } }
+    .cc { border-radius:10px; padding:.75rem .9rem; border:1.5px solid var(--t2-light); background:var(--t2-light); }
+    .cc .cc-icon { font-size:1.2rem; margin-bottom:.3rem; }
+    .cc .cc-name { font-size:.76rem; font-weight:700; color:var(--t2); margin-bottom:.2rem; }
+    .cc .cc-desc { font-size:.71rem; line-height:1.4; color:var(--color-text-primary); }
+
+    /* ── CATÁLOGO DE THD ── */
+    .thd-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:.75rem; }
+    @media(max-width:560px){ .thd-grid{ grid-template-columns:1fr; } }
+    .thd { border-radius:11px; padding:.9rem 1rem; border:1.5px solid; }
+    .thd .thd-head { display:flex; align-items:center; gap:.6rem; margin-bottom:.5rem; }
+    .thd .thd-icon { font-size:1.4rem; flex-shrink:0; }
+    .thd .thd-name { font-size:.88rem; font-weight:700; }
+    .thd .thd-alt  { font-size:.7rem; opacity:.75; font-style:italic; }
+    .thd ul { padding-left:1.05rem; }
+    .thd li { font-size:.76rem; line-height:1.45; margin-bottom:.25rem; color:var(--color-text-primary); }
+    .thd .thd-ej { font-size:.7rem; font-style:italic; margin-top:.4rem; opacity:.8; }
+
+    .thd-5g   { background:var(--c5g-l);   border-color:var(--c5g-b);   }  .thd-5g   .thd-name { color:var(--c5g);  }
+    .thd-cld  { background:var(--ccld-l);  border-color:var(--ccld-b);  }  .thd-cld  .thd-name { color:var(--ccld); }
+    .thd-big  { background:var(--cbig-l);  border-color:var(--cbig-b);  }  .thd-big  .thd-name { color:var(--cbig); }
+    .thd-cib  { background:var(--ccib-l);  border-color:var(--ccib-b);  }  .thd-cib  .thd-name { color:var(--ccib); }
+    .thd-blk  { background:var(--cblk-l);  border-color:var(--cblk-b);  }  .thd-blk  .thd-name { color:var(--cblk); }
+    .thd-ia   { background:var(--cia-l);   border-color:var(--cia-b);   }  .thd-ia   .thd-name { color:var(--cia);  }
+    .thd-vr   { background:var(--cvr-l);   border-color:var(--cvr-b);   }  .thd-vr   .thd-name { color:var(--cvr);  }
+    .thd-cob  { background:var(--ccob-l);  border-color:var(--ccob-b);  }  .thd-cob  .thd-name { color:var(--ccob); }
+    .thd-gem  { background:var(--cgem-l);  border-color:var(--cgem-b);  }  .thd-gem  .thd-name { color:var(--cgem); }
+    .thd-3d   { background:var(--c3d-l);   border-color:var(--c3d-b);   }  .thd-3d   .thd-name { color:var(--c3d);  }
+    .thd-iot  { background:var(--ciot-l);  border-color:var(--ciot-b);  }  .thd-iot  .thd-name { color:var(--ciot); }
+
+    /* ciberseguridad: 5 pilares */
+    .pilares { display:flex; flex-direction:column; gap:.4rem; margin-top:.5rem; }
+    .pilar { display:flex; align-items:flex-start; gap:.6rem; border-radius:8px; padding:.55rem .8rem; border:1px solid; }
+    .pilar-dot { flex-shrink:0; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.6rem; font-weight:700; color:#fff; margin-top:1px; }
+    .pilar-txt { font-size:.76rem; line-height:1.4; color:var(--color-text-primary); }
+    .pilar-txt strong { font-weight:700; }
+    .p1 { background:#FEF3C7; border-color:#FCD34D; }  .p1 .pilar-dot { background:#D97706; }
+    .p2 { background:#DBEAFE; border-color:#93C5FD; }  .p2 .pilar-dot { background:#2563EB; }
+    .p3 { background:#D1FAE5; border-color:#6EE7B7; }  .p3 .pilar-dot { background:#065F46; }
+    .p4 { background:#FEE2E2; border-color:#FCA5A5; }  .p4 .pilar-dot { background:#DC2626; }
+    .p5 { background:#EDE9FE; border-color:#C4B5FD; }  .p5 .pilar-dot { background:#7C3AED; }
+
+    /* datos: tipos */
+    .datos-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.6rem; margin-top:.5rem; }
+    @media(max-width:520px){ .datos-grid{ grid-template-columns:1fr; } }
+    .dato-card { border-radius:8px; padding:.7rem .85rem; border:1.5px solid; }
+    .dato-card .d-name { font-size:.75rem; font-weight:700; margin-bottom:.2rem; }
+    .dato-card .d-desc { font-size:.72rem; line-height:1.4; color:var(--color-text-primary); }
+    .dato-card .d-ej   { font-size:.69rem; font-style:italic; margin-top:.25rem; opacity:.8; }
+    .d1 { background:#DBEAFE; border-color:#93C5FD; } .d1 .d-name { color:#1e3a5f; }
+    .d2 { background:#D1FAE5; border-color:#6EE7B7; } .d2 .d-name { color:#052e16; }
+    .d3 { background:#FEE2E2; border-color:#FCA5A5; } .d3 .d-name { color:#450a0a; }
+
+    /* ── TABLA IT vs OT ── */
+    .itot-wrap { overflow-x:auto; }
+    .itot-table { width:100%; border-collapse:collapse; }
+    .itot-table th { font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; padding:.65rem .9rem; text-align:left; border-bottom:2px solid var(--color-border-secondary); }
+    .itot-table td { font-size:.76rem; line-height:1.45; padding:.6rem .9rem; border-bottom:0.5px solid var(--color-border-tertiary); vertical-align:top; color:var(--color-text-primary); }
+    .itot-table tr:last-child td { border-bottom:none; }
+    .th-it  { color:var(--ccld); }
+    .th-ot  { color:var(--ccob); }
+    .row-label td { font-size:.67rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--color-text-secondary); background:var(--color-background-secondary); padding:.5rem .9rem; }
+
+    /* ── MEJORAS POR SECTOR (acordeón) ── */
+    .afase { border:0.5px solid var(--color-border-secondary); border-radius:10px; overflow:hidden; margin-bottom:.55rem; }
+    .afase-head { display:flex; align-items:center; gap:.75rem; padding:.7rem 1rem; cursor:pointer; background:var(--color-background-secondary); transition:background .12s; }
+    .afase-head:hover { background:var(--color-background-tertiary); }
+    .afase-dot { width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.68rem; font-weight:700; color:#fff; flex-shrink:0; }
+    .afase-label    { font-size:.82rem; font-weight:600; color:var(--color-text-primary); flex:1; }
+    .afase-sublabel { font-size:.7rem; color:var(--color-text-secondary); }
+    .afase-body { display:none; padding:.65rem 1rem .8rem; border-top:0.5px solid var(--color-border-tertiary); }
+    .afase.open .afase-body { display:block; }
+    .afase-body .thd-chips { display:flex; flex-wrap:wrap; gap:.35rem; margin-bottom:.6rem; }
+    .afase-body ul { padding-left:1.1rem; }
+    .afase-body li { font-size:.77rem; line-height:1.5; margin-bottom:.25rem; color:var(--color-text-primary); }
+
+    /* ── NUEVAS PROFESIONES ── */
+    .prof-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.65rem; }
+    @media(max-width:580px){ .prof-grid{ grid-template-columns:1fr 1fr; } }
+    .prof-card { border-radius:9px; padding:.75rem .9rem; border:1.5px solid var(--color-border-secondary); background:var(--color-background-primary); }
+    .prof-icon  { font-size:1.2rem; margin-bottom:.3rem; }
+    .prof-name  { font-size:.76rem; font-weight:700; color:var(--t2); margin-bottom:.2rem; }
+    .prof-desc  { font-size:.72rem; line-height:1.4; color:var(--color-text-primary); }
+
+    /* ── RIESGOS ── */
+    .riesgo-grid { display:grid; grid-template-columns:1fr 1fr; gap:.85rem; }
+    @media(max-width:540px){ .riesgo-grid{ grid-template-columns:1fr; } }
+    .riesgo-bloque { border-radius:10px; padding:.9rem 1rem; border:1.5px solid; }
+    .rb-title { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.55rem; }
+    .riesgo-bloque ul { padding-left:1.1rem; }
+    .riesgo-bloque li { font-size:.76rem; line-height:1.5; margin-bottom:.25rem; color:var(--color-text-primary); }
+    .rb-med  { background:#FEE2E2; border-color:#FCA5A5; } .rb-med  .rb-title { color:#DC2626; }
+    .rb-lab  { background:#FEF3C7; border-color:#FCD34D; } .rb-lab  .rb-title { color:#D97706; }
+    .rb-seg  { background:#EDE9FE; border-color:#C4B5FD; } .rb-seg  .rb-title { color:#7C3AED; }
+    .rb-leg  { background:#D1FAE5; border-color:#6EE7B7; } .rb-leg  .rb-title { color:#065F46; }
+
+    /* ── NOTA GLOBAL ── */
+    .nota-global { background:var(--t2-light); border-left:4px solid var(--t2); border-radius:0 var(--radius) var(--radius) 0; padding:.9rem 1.1rem; font-size:.85rem; line-height:1.6; margin-top:1.5rem; color:var(--t2-dark); }
+    .nota-global strong { color:var(--t2); }
+
+    /* badge IT/OT */
+    .badge-it { display:inline-block; background:var(--ccld-l); border:1px solid var(--ccld-b); color:var(--ccld); font-size:.63rem; font-weight:700; padding:.12rem .5rem; border-radius:999px; margin-left:.3rem; vertical-align:middle; }
+    .badge-ot { display:inline-block; background:var(--ccob-l); border:1px solid var(--ccob-b); color:var(--ccob); font-size:.63rem; font-weight:700; padding:.12rem .5rem; border-radius:999px; margin-left:.3rem; vertical-align:middle; }
+
+    /* separador visual entre secciones THD */
+    .thd-sep { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--color-text-secondary); margin:.9rem 0 .5rem; padding:.35rem .7rem; background:var(--color-background-secondary); border-radius:6px; display:inline-block; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-label">Digitalización aplicada a los sectores productivos GS · Tema 2</div>
+    <h1 class="hero-title">Tecnologías habilitadoras digitales</h1>
+    <p class="hero-sub">Las 11 THD, sus características, aplicación en negocio y planta, mejoras sectoriales, nuevas profesiones y riesgos</p>
+  </header>
+
+
+  <!-- ══════════════════════════════════
+       1. ¿QUÉ SON Y CARACTERÍSTICAS
+  ══════════════════════════════════ -->
+  <div class="sec-title">1 · ¿Qué son las THD y sus 9 características?</div>
+
+  <div class="card">
+    <p style="font-size:.82rem;line-height:1.6;color:var(--color-text-primary);margin-bottom:.9rem;">
+      Las <strong>tecnologías habilitadoras digitales (THD)</strong> son las que
+      <strong>impulsan la innovación</strong> y permiten a las empresas desarrollar el proceso de
+      transformación digital. Proporcionan la tecnología necesaria para adaptarse a la
+      <strong>industria 4.0</strong>, impulsando avances en manufactura, salud, energía, agricultura, movilidad…
+    </p>
+    <p style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--t2);margin-bottom:.65rem;">
+      Las 9 características que las definen
+    </p>
+    <div class="caract-grid">
+      <div class="cc"><div class="cc-icon">💡</div><div class="cc-name">Innovación</div><div class="cc-desc">Permiten crear nuevos modelos de negocio, servicios y productos</div></div>
+      <div class="cc"><div class="cc-icon">🔗</div><div class="cc-name">Interconexión</div><div class="cc-desc">Se comunican entre sí, multiplicando las opciones que ofrecen</div></div>
+      <div class="cc"><div class="cc-icon">📈</div><div class="cc-name">Escalabilidad</div><div class="cc-desc">Crecen para adaptarse a las necesidades cambiantes de cada organización</div></div>
+      <div class="cc"><div class="cc-icon">🎨</div><div class="cc-name">Versatilidad</div><div class="cc-desc">Se implementan en una amplia variedad de empresas e industrias</div></div>
+      <div class="cc"><div class="cc-icon">📊</div><div class="cc-name">Analítica avanzada</div><div class="cc-desc">Ofrecen información en tiempo real y permiten análisis al instante</div></div>
+      <div class="cc"><div class="cc-icon">🎯</div><div class="cc-name">Personalización</div><div class="cc-desc">Se adaptan a las experiencias que demandan clientes y usuarios</div></div>
+      <div class="cc"><div class="cc-icon">🤖</div><div class="cc-name">Automatización</div><div class="cc-desc">Muchas son autónomas a la hora de llevar a cabo su cometido</div></div>
+      <div class="cc"><div class="cc-icon">🔒</div><div class="cc-name">Seguridad</div><div class="cc-desc">Incorporan medidas de protección avanzadas contra ciberataques</div></div>
+      <div class="cc"><div class="cc-icon">💰</div><div class="cc-name">Ahorro</div><div class="cc-desc">Optimizan el uso de recursos, reducen costes y minimizan desperdicios</div></div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       2. CATÁLOGO DE LAS 11 THD
+  ══════════════════════════════════ -->
+  <div class="sec-title">2 · Catálogo de las 11 THD</div>
+
+  <div class="card">
+
+    <!-- BLOQUE: conectividad y datos -->
+    <div class="thd-sep">📡 Conectividad y datos</div>
+    <div class="thd-grid">
+
+      <div class="thd thd-5g">
+        <div class="thd-head">
+          <span class="thd-icon">📶</span>
+          <div>
+            <div class="thd-name">Redes 5G</div>
+            <div class="thd-alt">Quinta generación de redes móviles</div>
+          </div>
+        </div>
+        <ul>
+          <li>Velocidad de descarga de hasta <strong>20 Gbps</strong></li>
+          <li>Latencia de <strong>1–2 milisegundos</strong></li>
+          <li>Gestión simultánea de más dispositivos</li>
+          <li>Ahorro energético respecto a generaciones anteriores</li>
+        </ul>
+      </div>
+
+      <div class="thd thd-iot">
+        <div class="thd-head">
+          <span class="thd-icon">🏠</span>
+          <div>
+            <div class="thd-name">Internet de las cosas (IoT)</div>
+            <div class="thd-alt">Internet of Things</div>
+          </div>
+        </div>
+        <ul>
+          <li>Conecta dispositivos físicos a internet: maquinaria, electrodomésticos, sensores…</li>
+          <li>Recopilan y generan datos de su entorno y funcionamiento</li>
+          <li>Automatizan y optimizan procesos</li>
+        </ul>
+        <div class="thd-ej">🔹 Sistemas de riego · Termostatos · Fábricas inteligentes</div>
+      </div>
+
+      <div class="thd thd-big">
+        <div class="thd-head">
+          <span class="thd-icon">🗂️</span>
+          <div>
+            <div class="thd-name">Big Data</div>
+            <div class="thd-alt">Procesamiento masivo de datos</div>
+          </div>
+        </div>
+        <ul>
+          <li>Recopila, almacena y analiza <strong>grandes volúmenes</strong> de datos</li>
+          <li>Datos de origen diverso: transacciones, sensores, redes sociales, registros…</li>
+        </ul>
+        <div style="margin-top:.5rem;">
+          <div class="datos-grid" style="grid-template-columns:1fr 1fr 1fr;">
+            <div class="dato-card d1"><div class="d-name">Estructurados</div><div class="d-desc">Bases de datos relacionales</div></div>
+            <div class="dato-card d2"><div class="d-name">Semiestructurados</div><div class="d-desc">Formatos XML o JSON</div></div>
+            <div class="dato-card d3"><div class="d-name">No estructurados</div><div class="d-desc">Texto, imágenes, vídeos</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="thd thd-cld">
+        <div class="thd-head">
+          <span class="thd-icon">☁️</span>
+          <div>
+            <div class="thd-name">Cloud computing</div>
+            <div class="thd-alt">Computación en la nube</div>
+          </div>
+        </div>
+        <ul>
+          <li>Servicios informáticos a través de internet sin infraestructura local</li>
+          <li>Almacenamiento, procesamiento, bases de datos, software, análisis…</li>
+        </ul>
+        <div class="thd-ej">🔹 AWS · Microsoft Azure · Google Cloud Platform</div>
+      </div>
+
+    </div>
+
+    <!-- BLOQUE: seguridad y confianza -->
+    <div class="thd-sep" style="margin-top:.85rem;">🛡️ Seguridad y confianza</div>
+    <div class="thd-grid">
+
+      <div class="thd thd-cib">
+        <div class="thd-head">
+          <span class="thd-icon">🔐</span>
+          <div>
+            <div class="thd-name">Ciberseguridad</div>
+            <div class="thd-alt">5 pilares fundamentales</div>
+          </div>
+        </div>
+        <div class="pilares">
+          <div class="pilar p1"><div class="pilar-dot">P</div><div class="pilar-txt"><strong>Prevención</strong> — firewalls, antivirus, parches, control de acceso</div></div>
+          <div class="pilar p2"><div class="pilar-dot">D</div><div class="pilar-txt"><strong>Detección</strong> — monitorización de red, SIEM, detección de anomalías</div></div>
+          <div class="pilar p3"><div class="pilar-dot">R</div><div class="pilar-txt"><strong>Respuesta</strong> — contención de amenazas, investigación forense digital</div></div>
+          <div class="pilar p4"><div class="pilar-dot">Rc</div><div class="pilar-txt"><strong>Recuperación</strong> — copias de seguridad, reparación de sistemas</div></div>
+          <div class="pilar p5"><div class="pilar-dot">E</div><div class="pilar-txt"><strong>Educación</strong> — concienciación de empleados, contraseñas seguras, phishing</div></div>
+        </div>
+      </div>
+
+      <div class="thd thd-blk">
+        <div class="thd-head">
+          <span class="thd-icon">🔗</span>
+          <div>
+            <div class="thd-name">Blockchain</div>
+            <div class="thd-alt">Registro distribuido</div>
+          </div>
+        </div>
+        <ul>
+          <li>Base de datos <strong>segura y transparente sin intermediarios</strong></li>
+          <li>Datos agrupados en bloques que forman una <strong>cadena inmutable</strong></li>
+          <li>Cada bloque contiene la info del anterior → garantiza integridad</li>
+          <li>Un registro distribuido se comparte entre múltiples nodos sin servidor central</li>
+        </ul>
+        <div class="thd-ej">🔹 Criptomonedas (Bitcoin) · Logística · Votación electrónica · Gestión de identidades</div>
+      </div>
+
+    </div>
+
+    <!-- BLOQUE: inteligencia y simulación -->
+    <div class="thd-sep" style="margin-top:.85rem;">🧠 Inteligencia y simulación</div>
+    <div class="thd-grid">
+
+      <div class="thd thd-ia">
+        <div class="thd-head">
+          <span class="thd-icon">🤖</span>
+          <div>
+            <div class="thd-name">Inteligencia artificial (IA)</div>
+            <div class="thd-alt">Machine learning → Deep learning</div>
+          </div>
+        </div>
+        <ul>
+          <li>Capacidad de las máquinas para aprender, razonar y tomar decisiones</li>
+          <li>Usa algoritmos y modelos matemáticos con grandes cantidades de datos</li>
+          <li>Evolución: aprendizaje automático → aprendizaje profundo (deep learning)</li>
+        </ul>
+      </div>
+
+      <div class="thd thd-gem">
+        <div class="thd-head">
+          <span class="thd-icon">👥</span>
+          <div>
+            <div class="thd-name">Gemelos digitales</div>
+            <div class="thd-alt">Digital twins</div>
+          </div>
+        </div>
+        <ul>
+          <li><strong>Réplica virtual</strong> de un objeto, sistema o proceso real</li>
+          <li>Permite análisis y simulaciones sin riesgo ni coste real</li>
+          <li>Integra datos históricos, algoritmos de predicción y software especializado</li>
+        </ul>
+        <div class="thd-ej">🔹 Simulación de procesos industriales · Mantenimiento predictivo · Pruebas de estrés</div>
+      </div>
+
+    </div>
+
+    <!-- BLOQUE: fabricación y realidad -->
+    <div class="thd-sep" style="margin-top:.85rem;">🏗️ Fabricación, robótica y realidad</div>
+    <div class="thd-grid">
+
+      <div class="thd thd-3d">
+        <div class="thd-head">
+          <span class="thd-icon">🖨️</span>
+          <div>
+            <div class="thd-name">Impresión 3D</div>
+            <div class="thd-alt">Fabricación aditiva</div>
+          </div>
+        </div>
+        <ul>
+          <li>Construye objetos tridimensionales <strong>capa por capa</strong> a partir de datos digitales</li>
+          <li>Geometrías complejas · Personalización rápida · Reducción de desperdicios</li>
+          <li>Producción de componentes con propiedades específicas y optimizadas</li>
+        </ul>
+      </div>
+
+      <div class="thd thd-cob">
+        <div class="thd-head">
+          <span class="thd-icon">🦾</span>
+          <div>
+            <div class="thd-name">Robótica colaborativa</div>
+            <div class="thd-alt">Cobótica</div>
+          </div>
+        </div>
+        <ul>
+          <li>Robots y humanos trabajan <strong>juntos de forma segura y eficiente</strong></li>
+          <li>A diferencia de los robots industriales tradicionales, comparten espacio con personas</li>
+          <li>Reduce errores humanos → mayor calidad · Aleja a los operarios de zonas peligrosas</li>
+        </ul>
+      </div>
+
+      <div class="thd thd-vr" style="grid-column:1/-1;">
+        <div class="thd-head">
+          <span class="thd-icon">🥽</span>
+          <div>
+            <div class="thd-name">Realidades inmersivas</div>
+            <div class="thd-alt">Realidad virtual (VR) + Realidad aumentada (AR)</div>
+          </div>
+        </div>
+        <div class="grid2" style="gap:.6rem;margin-top:.3rem;">
+          <div>
+            <p style="font-size:.74rem;font-weight:700;color:var(--cvr);margin-bottom:.3rem;">🔵 Realidad virtual (VR)</p>
+            <ul>
+              <li>Sumerge al usuario en un entorno <strong>completamente generado por ordenador</strong></li>
+              <li>Mediante visores o gafas de VR</li>
+              <li>El usuario puede interactuar dentro del entorno virtual</li>
+            </ul>
+          </div>
+          <div>
+            <p style="font-size:.74rem;font-weight:700;color:var(--cvr);margin-bottom:.3rem;">🟣 Realidad aumentada (AR)</p>
+            <ul>
+              <li><strong>Combina</strong> elementos del mundo real con elementos digitales</li>
+              <li>Superpone información digital en el entorno físico</li>
+              <li>Usa smartphones o tablets con cámara y software especializado</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       3. THD EN NEGOCIO (IT) vs PLANTA (OT)
+  ══════════════════════════════════ -->
+  <div class="sec-title">3 · THD en negocio (IT) y en planta (OT)</div>
+
+  <div class="card">
+    <p style="font-size:.8rem;color:var(--color-text-secondary);margin-bottom:.85rem;">
+      Cada THD tiene su ámbito principal de impacto. Las tecnologías <strong>IT</strong> (digitalización en negocio)
+      optimizan la gestión y los datos. Las tecnologías <strong>OT</strong> (digitalización en planta) optimizan
+      la producción y las operaciones físicas.
+    </p>
+
+    <div class="itot-wrap">
+      <table class="itot-table">
+        <thead>
+        <tr>
+          <th style="min-width:80px;"></th>
+          <th class="th-it">☁️ Tecnologías IT <span style="font-size:.65rem;font-weight:400;opacity:.8;">(digitalización en negocio)</span></th>
+          <th class="th-ot">⚙️ Tecnologías OT <span style="font-size:.65rem;font-weight:400;opacity:.8;">(digitalización en planta)</span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="row-label"><td colspan="3">THD que pertenecen a cada grupo</td></tr>
+        <tr>
+          <td style="font-size:.7rem;font-weight:700;color:var(--color-text-secondary);">Tecnologías</td>
+          <td>
+            <span class="chip" style="background:var(--ccld-l);border-color:var(--ccld-b);color:var(--ccld);margin:.15rem .1rem;">☁️ Cloud computing</span>
+            <span class="chip" style="background:var(--cbig-l);border-color:var(--cbig-b);color:var(--cbig);margin:.15rem .1rem;">🗂️ Big data</span>
+            <span class="chip" style="background:var(--ccib-l);border-color:var(--ccib-b);color:var(--ccib);margin:.15rem .1rem;">🔐 Ciberseguridad</span>
+            <span class="chip" style="background:var(--cia-l);border-color:var(--cia-b);color:var(--cia);margin:.15rem .1rem;">🤖 IA</span>
+          </td>
+          <td>
+            <span class="chip" style="background:var(--ccob-l);border-color:var(--ccob-b);color:var(--ccob);margin:.15rem .1rem;">🦾 Robótica colaborativa</span>
+            <span class="chip" style="background:var(--ciot-l);border-color:var(--ciot-b);color:var(--ciot);margin:.15rem .1rem;">🏠 IoT</span>
+            <span class="chip" style="background:var(--c3d-l);border-color:var(--c3d-b);color:var(--c3d);margin:.15rem .1rem;">🖨️ Impresión 3D</span>
+            <span class="chip" style="background:var(--cgem-l);border-color:var(--cgem-b);color:var(--cgem);margin:.15rem .1rem;">👥 Gemelos digitales</span>
+          </td>
+        </tr>
+        <tr class="row-label"><td colspan="3">Ventajas clave que aportan</td></tr>
+        <tr>
+          <td style="font-size:.7rem;font-weight:700;color:var(--color-text-secondary);">Cloud</td>
+          <td>Escalabilidad · Costes reducidos · Acceso global · Recuperación ante desastres</td>
+          <td style="color:var(--color-text-secondary);font-size:.72rem;">—</td>
+        </tr>
+        <tr>
+          <td style="font-size:.7rem;font-weight:700;color:var(--color-text-secondary);">Big data</td>
+          <td>Decisiones basadas en datos · Identificación de tendencias · Personalización</td>
+          <td style="color:var(--color-text-secondary);font-size:.72rem;">—</td>
+        </tr>
+        <tr>
+          <td style="font-size:.7rem;font-weight:700;color:var(--color-text-secondary);">Ciberseguridad</td>
+          <td>Protección de datos · Cumplimiento normativo · Confianza del cliente</td>
+          <td style="color:var(--color-text-secondary);font-size:.72rem;">—</td>
+        </tr>
+        <tr>
+          <td style="font-size:.7rem;font-weight:700;color:var(--color-text-secondary);">IA</td>
+          <td>Automatización · Predicción · Optimización de procesos · Innovación</td>
+          <td style="color:var(--color-text-secondary);font-size:.72rem;">—</td>
+        </tr>
+        <tr>
+          <td style="font-size:.7rem;font-weight:700;color:var(--color-text-secondary);">Robótica colab.</td>
+          <td style="color:var(--color-text-secondary);font-size:.72rem;">—</td>
+          <td>Productividad · Calidad · Seguridad de los trabajadores</td>
+        </tr>
+        <tr>
+          <td style="font-size:.7rem;font-weight:700;color:var(--color-text-secondary);">IoT</td>
+          <td style="color:var(--color-text-secondary);font-size:.72rem;">—</td>
+          <td>Monitorización en tiempo real · Eficiencia energética · Mantenimiento predictivo</td>
+        </tr>
+        <tr>
+          <td style="font-size:.7rem;font-weight:700;color:var(--color-text-secondary);">Impresión 3D</td>
+          <td style="color:var(--color-text-secondary);font-size:.72rem;">—</td>
+          <td>Prototipado rápido · Personalización · Reducción de residuos · Producción bajo demanda</td>
+        </tr>
+        <tr>
+          <td style="font-size:.7rem;font-weight:700;color:var(--color-text-secondary);">Gemelos digitales</td>
+          <td style="color:var(--color-text-secondary);font-size:.72rem;">—</td>
+          <td>Monitoreo proactivo · Optimización del rendimiento · Simulación y pruebas de estrés</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       4. MEJORAS POR SECTOR
+  ══════════════════════════════════ -->
+  <div class="sec-title">4 · Mejoras con las THD por sector económico</div>
+
+  <div class="card">
+
+    <div class="afase open" id="af0">
+      <div class="afase-head" onclick="toggleA('af0')">
+        <div class="afase-dot" style="background:var(--cs1)">🏥</div>
+        <div class="afase-label">Sector sanitario</div>
+        <div class="afase-sublabel">Diagnóstico, telemedicina y gestión hospitalaria</div>
+      </div>
+      <div class="afase-body">
+        <div class="thd-chips">
+          <span class="chip" style="background:var(--cia-l);border-color:var(--cia-b);color:var(--cia);">🤖 IA</span>
+          <span class="chip" style="background:var(--cbig-l);border-color:var(--cbig-b);color:var(--cbig);">🗂️ Big data</span>
+          <span class="chip" style="background:var(--cvr-l);border-color:var(--cvr-b);color:var(--cvr);">🥽 Realidades inmersivas</span>
+          <span class="chip" style="background:var(--ccob-l);border-color:var(--ccob-b);color:var(--ccob);">🦾 Robótica quirúrgica</span>
+          <span class="chip" style="background:var(--ciot-l);border-color:var(--ciot-b);color:var(--ciot);">⌚ Wearables</span>
+        </div>
+        <ul>
+          <li><strong>IA</strong> — diagnóstico temprano, análisis de imágenes médicas, predicción de brotes</li>
+          <li><strong>Telemedicina</strong> — consultas a distancia, especialmente en zonas rurales o de difícil acceso</li>
+          <li><strong>Big data</strong> — identificar tendencias en salud, mejorar gestión de enfermedades y desarrollar nuevas terapias</li>
+          <li><strong>Realidades inmersivas</strong> — formación médica, planificación quirúrgica y rehabilitación de pacientes</li>
+          <li><strong>Robótica quirúrgica</strong> — procedimientos menos invasivos, mayor precisión y recuperación más rápida</li>
+          <li><strong>Wearables</strong> — monitorización continua de signos vitales y actividad física en tiempo real</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="afase" id="af1">
+      <div class="afase-head" onclick="toggleA('af1')">
+        <div class="afase-dot" style="background:var(--cs2)">🏢</div>
+        <div class="afase-label">Sector servicios</div>
+        <div class="afase-sublabel">Automatización, atención al cliente y logística</div>
+      </div>
+      <div class="afase-body">
+        <div class="thd-chips">
+          <span class="chip" style="background:var(--cia-l);border-color:var(--cia-b);color:var(--cia);">🤖 IA + Chatbots</span>
+          <span class="chip" style="background:var(--ccld-l);border-color:var(--ccld-b);color:var(--ccld);">☁️ Cloud computing</span>
+          <span class="chip" style="background:var(--ccib-l);border-color:var(--ccib-b);color:var(--ccib);">🔐 Ciberseguridad</span>
+        </div>
+        <ul>
+          <li><strong>RPA (Robotic Process Automation)</strong> — automatiza tareas repetitivas y administrativas</li>
+          <li><strong>IA con chatbots</strong> — atención al cliente 24/7, libera a los empleados para tareas más complejas</li>
+          <li><strong>Cloud computing</strong> — almacenamiento seguro, colaboración en línea, escalabilidad de operaciones</li>
+          <li><strong>Trabajo remoto</strong> — videoconferencias, plataformas de gestión de proyectos y suites de productividad</li>
+          <li><strong>Logística</strong> — drones y vehículos autónomos optimizan distribución de inventarios</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="afase" id="af2">
+      <div class="afase-head" onclick="toggleA('af2')">
+        <div class="afase-dot" style="background:var(--cs3)">🏭</div>
+        <div class="afase-label">Sector industrial</div>
+        <div class="afase-sublabel">Industria 4.0 — fábricas inteligentes</div>
+      </div>
+      <div class="afase-body">
+        <div class="thd-chips">
+          <span class="chip" style="background:var(--ccob-l);border-color:var(--ccob-b);color:var(--ccob);">🦾 Robótica colaborativa</span>
+          <span class="chip" style="background:var(--ciot-l);border-color:var(--ciot-b);color:var(--ciot);">🏠 IoT</span>
+          <span class="chip" style="background:var(--c3d-l);border-color:var(--c3d-b);color:var(--c3d);">🖨️ Fabricación aditiva</span>
+          <span class="chip" style="background:var(--cblk-l);border-color:var(--cblk-b);color:var(--cblk);">🔗 Blockchain</span>
+          <span class="chip" style="background:var(--cgem-l);border-color:var(--cgem-b);color:var(--cgem);">👥 Gemelos digitales</span>
+        </div>
+        <ul>
+          <li><strong>Robótica colaborativa</strong> — mayor precisión, menos errores, trabaja junto a humanos de forma segura</li>
+          <li><strong>IoT</strong> — monitorización en tiempo real de maquinaria, mantenimiento predictivo y reducción de inactividad</li>
+          <li><strong>Impresión 3D</strong> — prototipos rápidos y económicos, reducción de tiempos de desarrollo</li>
+          <li><strong>Blockchain</strong> — trazabilidad en la cadena de suministro desde la materia prima al producto final</li>
+          <li><strong>Realidades inmersivas</strong> — formación, planificación y simulación de procesos productivos</li>
+          <li><strong>Gemelos digitales</strong> — réplicas virtuales para simulación y detección de problemas antes de que ocurran</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="afase" id="af3">
+      <div class="afase-head" onclick="toggleA('af3')">
+        <div class="afase-dot" style="background:var(--cs4)">💰</div>
+        <div class="afase-label">Sector financiero</div>
+        <div class="afase-sublabel">Blockchain, IA y pagos digitales</div>
+      </div>
+      <div class="afase-body">
+        <div class="thd-chips">
+          <span class="chip" style="background:var(--cblk-l);border-color:var(--cblk-b);color:var(--cblk);">🔗 Blockchain</span>
+          <span class="chip" style="background:var(--cia-l);border-color:var(--cia-b);color:var(--cia);">🤖 IA</span>
+          <span class="chip" style="background:var(--cbig-l);border-color:var(--cbig-b);color:var(--cbig);">🗂️ Big data</span>
+          <span class="chip" style="background:var(--ccib-l);border-color:var(--ccib-b);color:var(--ccib);">🔐 Ciberseguridad</span>
+        </div>
+        <ul>
+          <li><strong>Blockchain</strong> — transparencia y trazabilidad de transacciones; contratos inteligentes sin intermediarios</li>
+          <li><strong>IA</strong> — detección de fraudes, evaluación de riesgos, gestión de inversiones (roboadvisors)</li>
+          <li><strong>Ciberseguridad</strong> — protección de datos sensibles y prevención de fraudes</li>
+          <li><strong>Big data</strong> — identificar patrones, mejorar la toma de decisiones y personalizar productos</li>
+          <li><strong>Pagos contactless y NFC</strong> — transacciones más rápidas y seguras</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="afase" id="af4">
+      <div class="afase-head" onclick="toggleA('af4')">
+        <div class="afase-dot" style="background:var(--cs5)">🌾</div>
+        <div class="afase-label">Sector agrícola</div>
+        <div class="afase-sublabel">Agricultura de precisión</div>
+      </div>
+      <div class="afase-body">
+        <div class="thd-chips">
+          <span class="chip" style="background:var(--ciot-l);border-color:var(--ciot-b);color:var(--ciot);">🏠 IoT + Sensores</span>
+          <span class="chip" style="background:var(--cbig-l);border-color:var(--cbig-b);color:var(--cbig);">🗂️ Big data</span>
+          <span class="chip" style="background:var(--cblk-l);border-color:var(--cblk-b);color:var(--cblk);">🔗 Blockchain</span>
+          <span class="chip" style="background:var(--ccob-l);border-color:var(--ccob-b);color:var(--ccob);">🚜 Maquinaria autónoma</span>
+        </div>
+        <ul>
+          <li><strong>IoT y sensores</strong> — monitorización en tiempo real de humedad, temperatura y nutrientes del suelo</li>
+          <li><strong>Drones</strong> — vigilancia y mapeo de campos, evaluación de la salud de los cultivos</li>
+          <li><strong>Big data + IA</strong> — predicción de rendimientos, optimización de calendarios de siembra y cosecha</li>
+          <li><strong>Blockchain</strong> — trazabilidad de productos agrícolas y transparencia en la cadena de suministro</li>
+          <li><strong>Maquinaria autónoma</strong> — tractores y cosechadoras robotizados que reducen mano de obra y aumentan precisión</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       5. NUEVAS PROFESIONES
+  ══════════════════════════════════ -->
+  <div class="sec-title">5 · Nuevas profesiones que crea la industria 4.0</div>
+
+  <div class="card">
+    <p style="font-size:.8rem;color:var(--color-text-secondary);margin-bottom:.85rem;">
+      La implantación de las THD <strong>abre nuevos mercados y puestos de trabajo</strong> desconocidos hace solo una década.
+    </p>
+    <div class="prof-grid">
+      <div class="prof-card"><div class="prof-icon">🎯</div><div class="prof-name">Consultor en transformación digital</div><div class="prof-desc">Ayuda a empresas a integrar nuevas tecnologías en sus procesos</div></div>
+      <div class="prof-card"><div class="prof-icon">🤖</div><div class="prof-name">Ingeniero de IA</div><div class="prof-desc">Desarrolla e implementa algoritmos de IA y machine learning</div></div>
+      <div class="prof-card"><div class="prof-icon">📊</div><div class="prof-name">Analista de datos</div><div class="prof-desc">Procesa grandes volúmenes de datos para extraer información valiosa</div></div>
+      <div class="prof-card"><div class="prof-icon">🔗</div><div class="prof-name">Desarrollador de blockchain</div><div class="prof-desc">Crea aplicaciones y contratos inteligentes basados en blockchain</div></div>
+      <div class="prof-card"><div class="prof-icon">☁️</div><div class="prof-name">Arquitecto de la nube</div><div class="prof-desc">Diseña y gestiona infraestructuras IT escalables y seguras en la nube</div></div>
+      <div class="prof-card"><div class="prof-icon">🔐</div><div class="prof-name">Especialista en ciberseguridad</div><div class="prof-desc">Protege sistemas y redes contra ciberataques y brechas de seguridad</div></div>
+      <div class="prof-card"><div class="prof-icon">⚙️</div><div class="prof-name">Ingeniero de robots</div><div class="prof-desc">Diseña, construye y mantiene robots y sistemas automatizados</div></div>
+      <div class="prof-card"><div class="prof-icon">🥽</div><div class="prof-name">Diseñador AR/VR</div><div class="prof-desc">Crea experiencias inmersivas en realidad aumentada y virtual</div></div>
+      <div class="prof-card"><div class="prof-icon">🏠</div><div class="prof-name">Especialista en IoT</div><div class="prof-desc">Trabaja con dispositivos conectados para crear entornos inteligentes</div></div>
+      <div class="prof-card"><div class="prof-icon">🚁</div><div class="prof-name">Técnico / conductor de drones</div><div class="prof-desc">Mantiene y opera drones en los sectores que los utilizan</div></div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       6. RIESGOS
+  ══════════════════════════════════ -->
+  <div class="sec-title">6 · Riesgos de las tecnologías habilitadoras</div>
+
+  <div class="card">
+    <p style="font-size:.8rem;color:var(--color-text-secondary);margin-bottom:.85rem;">
+      La transformación digital también conlleva riesgos que hay que conocer para gestionarlos bien.
+    </p>
+    <div class="riesgo-grid">
+      <div class="riesgo-bloque rb-med">
+        <div class="rb-title">🌍 Riesgos medioambientales</div>
+        <ul>
+          <li>Mayor consumo energético</li>
+          <li>Generación de residuos electrónicos</li>
+          <li>Consumo abusivo de recursos naturales</li>
+          <li>Mayor huella de carbono en fabricación</li>
+          <li>Impacto en la biodiversidad</li>
+        </ul>
+      </div>
+      <div class="riesgo-bloque rb-lab">
+        <div class="rb-title">👷 Riesgos laborales</div>
+        <ul>
+          <li>Desplazamiento de empleos</li>
+          <li>Obsolescencia de habilidades personales</li>
+          <li>Desigualdad y brecha digital</li>
+          <li>Cambios en las relaciones laborales</li>
+          <li>Resistencia al cambio</li>
+        </ul>
+      </div>
+      <div class="riesgo-bloque rb-seg">
+        <div class="rb-title">🔓 Riesgos de seguridad y privacidad</div>
+        <ul>
+          <li>Peligro de sufrir ciberataques</li>
+          <li>Robo de información personal o empresarial</li>
+          <li>Mercadeo ilegal de datos</li>
+          <li>Monitoreo indiscriminado de la actividad</li>
+        </ul>
+      </div>
+      <div class="riesgo-bloque rb-leg">
+        <div class="rb-title">⚖️ Riesgos legales</div>
+        <ul>
+          <li>Falta de regulación y vacíos legales</li>
+          <li>Legislación inadecuada o desactualizada</li>
+          <li>Establecimiento de monopolios tecnológicos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- NOTA FINAL -->
+  <div class="nota-global">
+    <strong>⚡ Claves para el examen:</strong>
+    THD = impulsan la innovación y permiten adaptarse a la industria 4.0 ·
+    IT (negocio): Cloud, Big data, Ciberseguridad, IA ·
+    OT (planta): Robótica colaborativa, IoT, Impresión 3D, Gemelos digitales ·
+    Cobótica = otro nombre de la robótica colaborativa ·
+    Fabricación aditiva = otro nombre de la impresión 3D ·
+    Blockchain = cadena inmutable de bloques sin intermediarios ·
+    Datos: estructurados (BD relacionales) · semiestructurados (XML/JSON) · no estructurados (texto, imagen, vídeo) ·
+    Ciberseguridad: <strong>P</strong>revención · <strong>D</strong>etección · <strong>R</strong>espuesta · <strong>R</strong>ecuperación · <strong>E</strong>ducación
+  </div>
+
+</div>
+
+<script>
+  document.getElementById('af0').classList.add('open');
+  function toggleA(id) { document.getElementById(id).classList.toggle('open'); }
+</script>
+</body>
+</html>
