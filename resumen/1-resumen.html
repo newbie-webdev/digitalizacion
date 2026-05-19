@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tema 1 — Digitalización en los sectores productivos</title>
+  <link rel="stylesheet" href="../estilos.css" />
+  <style>
+    :root {
+      --t1:        #1D9E75;
+      --t1-light:  #E1F5EE;
+      --t1-mid:    #2DC48E;
+      --t1-dark:   #053D2C;
+
+      --cr1:  #92400E; --cr1-l: #FEF3C7; --cr1-b: #FCD34D;
+      --cr2:  #1D4ED8; --cr2-l: #DBEAFE; --cr2-b: #93C5FD;
+      --cr3:  #6B21A8; --cr3-l: #F3E8FF; --cr3-b: #D8B4FE;
+      --cr4:  #1D9E75; --cr4-l: #D1FAE5; --cr4-b: #6EE7B7;
+
+      --cdig: #0F766E; --cdig-l:#CCFBF1; --cdig-b:#5EEAD4;
+      --ctd:  #7C3AED; --ctd-l: #EDE9FE; --ctd-b: #C4B5FD;
+
+      --cp1:  #185FA5; --cp1-l: #E0F2FE; --cp1-b: #7DD3FC;
+      --cp2:  #B45309; --cp2-l: #FEF3C7; --cp2-b: #FCD34D;
+      --cp3:  #065F46; --cp3-l: #D1FAE5; --cp3-b: #6EE7B7;
+
+      --cit:  #185FA5; --cit-l: #E0F2FE; --cit-b: #7DD3FC;
+      --cot:  #B45309; --cot-l: #FEF3C7; --cot-b: #FCD34D;
+
+      --radius: 12px;
+      --shadow: 0 2px 12px rgba(0,0,0,.07);
+    }
+
+    body { background:var(--color-background-tertiary); font-family:system-ui,-apple-system,sans-serif; padding:2rem 1rem 4rem; }
+    .page { max-width:880px; margin:0 auto; }
+
+    /* HERO */
+    .hero { background:linear-gradient(135deg,#053D2C 0%,#1D9E75 55%,#2DC48E 100%); border-radius:16px; padding:2rem 2rem 1.75rem; margin-bottom:2rem; color:#fff; position:relative; overflow:hidden; }
+    .hero::before { content:''; position:absolute; top:-30px; right:-30px; width:180px; height:180px; border-radius:50%; background:rgba(255,255,255,.06); }
+    .hero::after  { content:''; position:absolute; bottom:-50px; left:40px; width:110px; height:110px; border-radius:50%; background:rgba(255,255,255,.04); }
+    .hero-label { font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:#A7F3D0; margin-bottom:.45rem; }
+    .hero-title { font-size:1.65rem; font-weight:700; line-height:1.25; margin-bottom:.4rem; }
+    .hero-sub   { font-size:.88rem; color:#D1FAE5; opacity:.9; }
+
+    /* SECTION TITLE */
+    .sec-title { font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--t1); margin:1.75rem 0 .9rem; display:flex; align-items:center; gap:.5rem; }
+    .sec-title::after { content:''; flex:1; height:1px; background:var(--color-border-tertiary); }
+
+    /* CARD */
+    .card { background:var(--color-background-primary); border:0.5px solid var(--color-border-tertiary); border-radius:var(--radius); padding:1.1rem 1.2rem; box-shadow:var(--shadow); }
+
+    /* GRIDS */
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    @media(max-width:620px){ .grid2{ grid-template-columns:1fr; } }
+
+    /* CHIP */
+    .chip { display:inline-flex; align-items:center; gap:.35rem; padding:.28rem .7rem; border-radius:999px; font-size:.74rem; font-weight:600; border:1.5px solid transparent; }
+
+    /* ── LÍNEA DE TIEMPO DE REVOLUCIONES ── */
+    .rev-timeline { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; }
+    @media(max-width:640px){ .rev-timeline{ grid-template-columns:1fr 1fr; } }
+    @media(max-width:420px){ .rev-timeline{ grid-template-columns:1fr; } }
+
+    .rev-card { border-radius:11px; padding:1rem 1.05rem; border:1.5px solid; display:flex; flex-direction:column; gap:.35rem; position:relative; overflow:hidden; }
+    .rev-card::before { content:attr(data-n); position:absolute; top:-8px; right:-4px; font-size:4rem; font-weight:900; opacity:.06; line-height:1; }
+    .rev-num   { font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; opacity:.75; }
+    .rev-icon  { font-size:1.5rem; line-height:1; margin:.1rem 0; }
+    .rev-name  { font-size:.85rem; font-weight:700; line-height:1.3; }
+    .rev-dates { font-size:.7rem; opacity:.8; margin-bottom:.2rem; }
+    .rev-innov { font-size:.73rem; line-height:1.4; }
+    .rev-innov strong { font-weight:700; }
+    .rev-impacto { margin-top:.4rem; font-size:.7rem; line-height:1.4; border-top:1px solid; padding-top:.4rem; opacity:.85; }
+
+    .rv1 { background:var(--cr1-l); border-color:var(--cr1-b); color:var(--cr1); }
+    .rv1 .rev-impacto { border-color:var(--cr1-b); }
+    .rv2 { background:var(--cr2-l); border-color:var(--cr2-b); color:var(--cr2); }
+    .rv2 .rev-impacto { border-color:var(--cr2-b); }
+    .rv3 { background:var(--cr3-l); border-color:var(--cr3-b); color:var(--cr3); }
+    .rv3 .rev-impacto { border-color:var(--cr3-b); }
+    .rv4 { background:var(--cr4-l); border-color:var(--cr4-b); color:var(--cr4); }
+    .rv4 .rev-impacto { border-color:var(--cr4-b); }
+
+    /* flecha entre revoluciones */
+    .rev-arr { display:flex; align-items:center; justify-content:center; color:var(--color-text-secondary); font-size:1.2rem; padding-top:.6rem; }
+    @media(max-width:640px){ .rev-arr{ display:none; } }
+
+    /* ── 4ª REVOLUCIÓN: 6 características ── */
+    .caract-rev4 { display:grid; grid-template-columns:repeat(3,1fr); gap:.65rem; margin-top:.75rem; }
+    @media(max-width:540px){ .caract-rev4{ grid-template-columns:1fr 1fr; } }
+    .cr4-card { border-radius:9px; padding:.7rem .85rem; background:var(--cr4-l); border:1.5px solid var(--cr4-b); }
+    .cr4-icon { font-size:1.1rem; margin-bottom:.25rem; }
+    .cr4-name { font-size:.75rem; font-weight:700; color:var(--cr4); margin-bottom:.2rem; }
+    .cr4-desc { font-size:.71rem; line-height:1.4; color:var(--color-text-primary); }
+
+    /* ── DIGITALIZACIÓN vs TRANSFORMACIÓN DIGITAL ── */
+    .compare-wrap { display:grid; grid-template-columns:1fr auto 1fr; gap:.75rem; align-items:start; }
+    @media(max-width:560px){ .compare-wrap{ grid-template-columns:1fr; } }
+    .compare-side { border-radius:var(--radius); padding:1rem 1.1rem; border:1.5px solid; }
+    .cs-dig { background:var(--cdig-l); border-color:var(--cdig-b); }
+    .cs-td  { background:var(--ctd-l);  border-color:var(--ctd-b); }
+    .compare-title { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; margin-bottom:.6rem; }
+    .ct-dig { color:var(--cdig); }
+    .ct-td  { color:var(--ctd); }
+    .compare-vs { display:flex; align-items:center; justify-content:center; font-size:1.1rem; font-weight:700; color:var(--color-text-secondary); padding-top:2rem; }
+    .compare-side ul { padding-left:1.1rem; }
+    .compare-side li { font-size:.79rem; line-height:1.5; margin-bottom:.3rem; color:var(--color-text-primary); }
+
+    /* procesos comunes */
+    .proc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin-top:.75rem; }
+    @media(max-width:540px){ .proc-grid{ grid-template-columns:1fr 1fr; } }
+    .proc-card { border-radius:9px; padding:.7rem .85rem; border:1.5px solid var(--color-border-secondary); background:var(--color-background-secondary); }
+    .proc-icon { font-size:1.1rem; margin-bottom:.25rem; }
+    .proc-name { font-size:.76rem; font-weight:700; color:var(--t1); margin-bottom:.2rem; }
+    .proc-desc { font-size:.71rem; line-height:1.4; color:var(--color-text-primary); }
+
+    /* ventajas empresa digitalizada */
+    .vent-grid { display:grid; grid-template-columns:1fr 1fr; gap:.55rem; margin-top:.6rem; }
+    @media(max-width:480px){ .vent-grid{ grid-template-columns:1fr; } }
+    .vent-item { display:flex; align-items:flex-start; gap:.55rem; background:var(--t1-light); border:1px solid #A7F3D0; border-radius:8px; padding:.55rem .75rem; }
+    .vent-emoji { font-size:1rem; flex-shrink:0; margin-top:1px; }
+    .vent-txt   { font-size:.76rem; line-height:1.4; color:var(--color-text-primary); }
+    .vent-txt strong { color:var(--t1); }
+
+    /* ── SISTEMAS CIBERFÍSICOS (CPS) ── */
+
+    /* definición + ejemplos */
+    .cps-def { background:var(--cp1-l); border:1.5px solid var(--cp1-b); border-radius:10px; padding:.9rem 1.1rem; margin-bottom:.85rem; }
+    .cps-def p { font-size:.82rem; line-height:1.6; color:var(--color-text-primary); }
+    .cps-def strong { color:var(--cp1); }
+
+    /* ejemplos chips */
+    .ej-chips { display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.5rem; }
+
+    /* las 3 capas: stack visual */
+    .capas-wrap { display:flex; flex-direction:column; gap:.5rem; }
+    .capa-card  { border-radius:11px; padding:1rem 1.15rem; border:2px solid; position:relative; }
+    .capa-card .ca-header { display:flex; align-items:center; gap:.75rem; margin-bottom:.6rem; }
+    .capa-card .ca-num  { flex-shrink:0; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.82rem; font-weight:700; color:#fff; }
+    .capa-card .ca-icon { font-size:1.35rem; }
+    .capa-card .ca-name { font-size:.92rem; font-weight:700; }
+    .capa-card .ca-sub  { font-size:.73rem; opacity:.8; }
+    .capa-card ul { padding-left:1.1rem; }
+    .capa-card li { font-size:.77rem; line-height:1.5; margin-bottom:.3rem; color:var(--color-text-primary); }
+    .capa-card .ca-nota { margin-top:.55rem; font-size:.73rem; padding:.4rem .65rem; border-radius:7px; font-style:italic; }
+
+    .cc-perc { background:var(--cp1-l); border-color:var(--cp1); }
+    .cc-perc .ca-num  { background:var(--cp1); }
+    .cc-perc .ca-name { color:var(--cp1); }
+    .cc-perc .ca-nota { background:rgba(24,95,165,.08); color:var(--cp1); }
+
+    .cc-trans { background:var(--cp2-l); border-color:var(--cp2); }
+    .cc-trans .ca-num  { background:var(--cp2); }
+    .cc-trans .ca-name { color:var(--cp2); }
+    .cc-trans .ca-nota { background:rgba(180,83,9,.08); color:var(--cp2); }
+
+    .cc-aplic { background:var(--cp3-l); border-color:var(--cp3); }
+    .cc-aplic .ca-num  { background:var(--cp3); }
+    .cc-aplic .ca-name { color:var(--cp3); }
+    .cc-aplic .ca-nota { background:rgba(6,95,70,.08); color:var(--cp3); }
+
+    /* flecha entre capas */
+    .capa-arr { text-align:center; color:var(--color-text-secondary); font-size:1.1rem; line-height:1; margin:.1rem 0; }
+
+    /* sub-chips de tecnologías en capa transmisión */
+    .tech-chips { display:flex; flex-wrap:wrap; gap:.3rem; margin-top:.45rem; }
+
+    /* ── IT vs OT ── */
+    .itot-grid { display:grid; grid-template-columns:1fr 1fr; gap:.85rem; }
+    @media(max-width:580px){ .itot-grid{ grid-template-columns:1fr; } }
+
+    .itot-half { border-radius:var(--radius); padding:1rem 1.1rem; border:1.5px solid; }
+    .ih-title { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em; margin-bottom:.6rem; }
+    .ih-def   { font-size:.78rem; line-height:1.5; margin-bottom:.6rem; color:var(--color-text-primary); }
+    .ih-def strong { font-weight:700; }
+    .ih-comp  { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; margin:.6rem 0 .35rem; }
+    .comp-list { display:flex; flex-direction:column; gap:.3rem; }
+    .comp-item { border-radius:7px; padding:.45rem .7rem; font-size:.74rem; line-height:1.4; border:1px solid; color:var(--color-text-primary); }
+
+    .ih-it { background:var(--cit-l); border-color:var(--cit-b); }
+    .ih-it .ih-title { color:var(--cit); }
+    .ih-it .ih-comp  { color:var(--cit); }
+    .ih-it .comp-item { background:rgba(24,95,165,.06); border-color:var(--cit-b); }
+
+    .ih-ot { background:var(--cot-l); border-color:var(--cot-b); }
+    .ih-ot .ih-title { color:var(--cot); }
+    .ih-ot .ih-comp  { color:var(--cot); }
+    .ih-ot .comp-item { background:rgba(180,83,9,.06); border-color:var(--cot-b); }
+
+    /* relación IT + OT */
+    .relacion-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem; margin-top:.75rem; }
+    @media(max-width:540px){ .relacion-grid{ grid-template-columns:1fr 1fr; } }
+    .rel-card { border-radius:9px; padding:.7rem .85rem; background:var(--color-background-secondary); border:1px solid var(--color-border-secondary); }
+    .rel-icon { font-size:1.1rem; margin-bottom:.3rem; }
+    .rel-name { font-size:.75rem; font-weight:700; color:var(--t1); margin-bottom:.2rem; }
+    .rel-desc { font-size:.71rem; line-height:1.4; color:var(--color-text-primary); }
+
+    /* estructura empresa digitalizada */
+    .org-wrap { margin-top:.7rem; }
+    .org-level { border-radius:9px; padding:.65rem 1rem; border:1.5px solid; margin-bottom:.4rem; font-size:.78rem; line-height:1.45; color:var(--color-text-primary); }
+    .org-label { font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.2rem; }
+    .ol-trad { background:var(--color-background-secondary); border-color:var(--color-border-secondary); }
+    .ol-trad .org-label { color:var(--color-text-secondary); }
+    .ol-new  { background:var(--t1-light); border-color:#A7F3D0; }
+    .ol-new  .org-label { color:var(--t1); }
+    .org-connector { text-align:center; color:var(--color-text-secondary); font-size:.9rem; margin:.1rem 0; }
+
+    /* ── NOTA GLOBAL ── */
+    .nota-global { background:var(--t1-light); border-left:4px solid var(--t1); border-radius:0 var(--radius) var(--radius) 0; padding:.9rem 1.1rem; font-size:.85rem; line-height:1.6; margin-top:1.5rem; color:var(--t1-dark); }
+    .nota-global strong { color:var(--t1); }
+
+    /* Foro Davos callout */
+    .callout { background:var(--cr4-l); border:1px solid var(--cr4-b); border-radius:9px; padding:.65rem .9rem; font-size:.76rem; line-height:1.5; color:var(--color-text-primary); margin-top:.65rem; }
+    .callout strong { color:var(--cr4); }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-label">Digitalización aplicada a los sectores productivos GS · Tema 1</div>
+    <h1 class="hero-title">Digitalización en los sectores productivos</h1>
+    <p class="hero-sub">Revoluciones industriales · Digitalización vs TD · Sistemas ciberfísicos · Entornos IT y OT</p>
+  </header>
+
+
+  <!-- ══════════════════════════════════
+       1. LAS 4 REVOLUCIONES INDUSTRIALES
+  ══════════════════════════════════ -->
+  <div class="sec-title">1 · Las cuatro revoluciones industriales</div>
+
+  <div class="card">
+    <div class="rev-timeline">
+
+      <div class="rev-card rv1" data-n="1">
+        <div class="rev-num">1ª Revolución</div>
+        <div class="rev-icon">⚙️</div>
+        <div class="rev-name">Mecanización y vapor</div>
+        <div class="rev-dates">1760 – 1840</div>
+        <div class="rev-innov">
+          <strong>Máquina de vapor</strong> (James Watt) ·
+          Industria textil · Primeras fábricas
+        </div>
+        <div class="rev-impacto">
+          Economía agraria → industrializada · Producción masiva · Ferrocarril y barcos a vapor · Cambios demográficos
+        </div>
+      </div>
+
+      <div class="rev-card rv2" data-n="2">
+        <div class="rev-num">2ª Revolución</div>
+        <div class="rev-icon">⚡</div>
+        <div class="rev-name">Electricidad y producción en masa</div>
+        <div class="rev-dates">1870 – 1914</div>
+        <div class="rev-innov">
+          <strong>Electrificación</strong> · Línea de montaje (<strong>Henry Ford</strong>) · Expansión del ferrocarril · Industria química y del acero
+        </div>
+        <div class="rev-impacto">
+          Productividad industrial · Urbanización acelerada · Teléfono y telégrafo · Cambios en estructura laboral
+        </div>
+      </div>
+
+      <div class="rev-card rv3" data-n="3">
+        <div class="rev-num">3ª Revolución</div>
+        <div class="rev-icon">💻</div>
+        <div class="rev-name">Digitalización y automatización</div>
+        <div class="rev-dates">1950 – actualidad</div>
+        <div class="rev-innov">
+          <strong>Semiconductores</strong> · Computadoras personales · Internet · Telecomunicaciones · Automatización
+        </div>
+        <div class="rev-impacto">
+          Transformación digital de la economía · Globalización del comercio · Sectores económicos basados en tecnología y servicios
+        </div>
+      </div>
+
+      <div class="rev-card rv4" data-n="4">
+        <div class="rev-num">4ª Revolución · Hoy</div>
+        <div class="rev-icon">🤖</div>
+        <div class="rev-name">Industria 4.0</div>
+        <div class="rev-dates">2010 – presente</div>
+        <div class="rev-innov">
+          <strong>IA · IoT · Robótica · AR/VR · Computación cuántica · Nanotecnología</strong>
+        </div>
+        <div class="rev-impacto">
+          Convergencia tecnológica · Impacto en el mercado laboral · Interconexión global · Sostenibilidad
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Características Cuarta Revolución -->
+    <p style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--cr4);margin:1.1rem 0 .55rem;">
+      Las 6 características de la Cuarta Revolución Industrial
+    </p>
+    <div class="caract-rev4">
+      <div class="cr4-card"><div class="cr4-icon">🔀</div><div class="cr4-name">Convergencia tecnológica</div><div class="cr4-desc">Tecnologías que se complementan entre sí para crear soluciones innovadoras y disruptivas</div></div>
+      <div class="cr4-card"><div class="cr4-icon">⚡</div><div class="cr4-name">Automatización y digitalización</div><div class="cr4-desc">Mayor eficiencia, reducción de costes y tiempos, mejora de la calidad de producción</div></div>
+      <div class="cr4-card"><div class="cr4-icon">👷</div><div class="cr4-name">Impacto en el mercado laboral</div><div class="cr4-desc">Nuevas competencias necesarias y reconfiguración de muchos puestos de trabajo</div></div>
+      <div class="cr4-card"><div class="cr4-icon">🌍</div><div class="cr4-name">Interconexión global</div><div class="cr4-desc">Empresas, consumidores, gobiernos y sociedad más conectados; facilita la colaboración</div></div>
+      <div class="cr4-card"><div class="cr4-icon">🌱</div><div class="cr4-name">Sostenibilidad y RSC</div><div class="cr4-desc">Impulsa soluciones sostenibles y socialmente responsables con impacto positivo</div></div>
+      <div class="cr4-card"><div class="cr4-icon">🚀</div><div class="cr4-name">Avances disruptivos</div><div class="cr4-desc">IA, IoT, robótica, AR/VR, nanotecnología, computación cuántica transforman cómo vivimos</div></div>
+    </div>
+
+    <div class="callout">
+      💡 El término <strong>Cuarta Revolución Industrial</strong> fue acuñado por <strong>Klaus Schwab</strong>
+      (fundador del Foro Económico Mundial / Foro de Davos) en <strong>2016</strong>.
+      El Foro de Davos es una ONG internacional que agrupa a líderes políticos, empresariales e intelectuales para analizar los problemas del mundo.
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       2. DIGITALIZACIÓN vs TRANSFORMACIÓN DIGITAL
+  ══════════════════════════════════ -->
+  <div class="sec-title">2 · Digitalización vs Transformación digital</div>
+
+  <div class="card" style="margin-bottom:1rem;">
+    <div class="compare-wrap">
+      <div class="compare-side cs-dig">
+        <div class="compare-title ct-dig">🔄 Digitalización</div>
+        <ul>
+          <li><strong>Adapta</strong> procesos analógicos a su versión digital</li>
+          <li><strong>No varía</strong> los procedimientos — solo cambia el soporte</li>
+          <li>Ej: pasar del papel al PDF, firmar digitalmente, almacenar en la nube</li>
+          <li>Es un <strong>pilar fundamental</strong> de la transformación digital, pero solo uno de ellos</li>
+        </ul>
+      </div>
+      <div class="compare-vs">⊂</div>
+      <div class="compare-side cs-td">
+        <div class="compare-title ct-td">🚀 Transformación digital</div>
+        <ul>
+          <li>Proceso <strong>interno más profundo</strong> que va más allá de lo digital</li>
+          <li>Busca <strong>generar valor</strong> a todos los actores: clientes, proveedores, empleados, accionistas…</li>
+          <li>Objetivo final: adaptarse al mundo interconectado e hiperactivo</li>
+          <li>Requiere una <strong>estrategia digital</strong> como base de la cultura empresarial</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:.85rem;background:var(--color-background-secondary);border-radius:9px;padding:.65rem 1rem;font-size:.77rem;line-height:1.5;color:var(--color-text-secondary);">
+      💡 <strong style="color:var(--color-text-primary);">Regla para no confundirlos:</strong>
+      La digitalización es el "<em>cómo</em>" técnico (cambiar de analógico a digital).
+      La transformación digital es el "<em>por qué</em>" estratégico (generar más valor con esas herramientas).
+      <strong style="color:var(--color-text-primary);">Digitalizar ≠ transformarse digitalmente.</strong>
+    </div>
+  </div>
+
+  <!-- Procesos comunes + ventajas empresa digitalizada -->
+  <div class="grid2">
+    <div class="card">
+      <p style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--cdig);margin-bottom:.65rem;">
+        📋 Procesos comunes de digitalización
+      </p>
+      <div class="proc-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="proc-card"><div class="proc-icon">📄</div><div class="proc-name">Desmaterialización</div><div class="proc-desc">Del papel a lo digital: facturas, pedidos, inventarios, firmas electrónicas</div></div>
+        <div class="proc-card"><div class="proc-icon">🎓</div><div class="proc-name">Formación del equipo</div><div class="proc-desc">Empleados conocedores y usuarios de las nuevas tecnologías</div></div>
+        <div class="proc-card"><div class="proc-icon">📱</div><div class="proc-name">Redes sociales</div><div class="proc-desc">Canal directo con clientes; contenido planificado, de calidad y útil</div></div>
+        <div class="proc-card"><div class="proc-icon">🌱</div><div class="proc-name">Sostenibilidad</div><div class="proc-desc">Atención al medio ambiente, cambio climático y huella de carbono</div></div>
+        <div class="proc-card" style="grid-column:1/-1;"><div class="proc-icon">👥</div><div class="proc-name">Gestión del talento</div><div class="proc-desc">Distribuir los recursos disponibles de forma más eficiente</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <p style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ctd);margin-bottom:.5rem;">
+        ✅ Ventajas de una empresa digitalizada
+      </p>
+      <div class="vent-grid">
+        <div class="vent-item"><span class="vent-emoji">⚡</span><div class="vent-txt"><strong>Mayor agilidad</strong> en la toma de decisiones con datos en tiempo real</div></div>
+        <div class="vent-item"><span class="vent-emoji">⚙️</span><div class="vent-txt"><strong>Eficiencia operativa</strong> — automatización reduce errores y optimiza recursos</div></div>
+        <div class="vent-item"><span class="vent-emoji">🌍</span><div class="vent-txt"><strong>Nuevos mercados</strong> — presencia online amplía el alcance global</div></div>
+        <div class="vent-item"><span class="vent-emoji">😊</span><div class="vent-txt"><strong>Mejor experiencia</strong> del cliente con servicios más eficientes y personalizados</div></div>
+        <div class="vent-item"><span class="vent-emoji">💸</span><div class="vent-txt"><strong>Reducción de costes</strong> en infraestructura y mejora de eficiencia energética</div></div>
+        <div class="vent-item"><span class="vent-emoji">💡</span><div class="vent-txt"><strong>Innovación continua</strong> — nuevos productos y servicios adaptados al mercado</div></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       3. SISTEMAS CIBERFÍSICOS (CPS)
+  ══════════════════════════════════ -->
+  <div class="sec-title">3 · Sistemas ciberfísicos (CPS) — las 3 capas</div>
+
+  <div class="card" style="margin-bottom:1rem;">
+    <div class="cps-def">
+      <p>Los <strong>sistemas ciberfísicos (CPS)</strong> son sistemas integrados de computación capaces de
+        <strong>controlar y colaborar con sistemas físicos</strong> (máquinas y dispositivos)
+        utilizando redes de comunicación. Son uno de los avances más destacados de la Cuarta Revolución Industrial.</p>
+      <div class="ej-chips">
+        <span class="chip" style="background:var(--cp1-l);border-color:var(--cp1-b);color:var(--cp1);">🚗 Vehículos autónomos</span>
+        <span class="chip" style="background:var(--cp1-l);border-color:var(--cp1-b);color:var(--cp1);">🚁 Drones</span>
+        <span class="chip" style="background:var(--cp1-l);border-color:var(--cp1-b);color:var(--cp1);">🏠 Viviendas domotizadas</span>
+        <span class="chip" style="background:var(--cp1-l);border-color:var(--cp1-b);color:var(--cp1);">🦾 Prótesis biónicas</span>
+        <span class="chip" style="background:var(--cp1-l);border-color:var(--cp1-b);color:var(--cp1);">🏭 Fábricas inteligentes</span>
+        <span class="chip" style="background:var(--cp1-l);border-color:var(--cp1-b);color:var(--cp1);">🔬 Instrumentos quirúrgicos asistidos</span>
+      </div>
+    </div>
+
+    <p style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--t1);margin-bottom:.65rem;">
+      Las 3 capas de funcionamiento de un CPS
+    </p>
+
+    <div class="capas-wrap">
+
+      <!-- CAPA 1: PERCEPCIÓN -->
+      <div class="capa-card cc-perc">
+        <div class="ca-header">
+          <div class="ca-num" style="background:var(--cp1);">1</div>
+          <div class="ca-icon">📡</div>
+          <div>
+            <div class="ca-name">Capa de percepción</div>
+            <div class="ca-sub">Obtiene datos del entorno físico mediante <strong>sensores</strong></div>
+          </div>
+        </div>
+        <ul>
+          <li>Los <strong>sensores</strong> detectan cambios en el entorno y los convierten en señales que el sistema puede interpretar</li>
+          <li>Tipos de sensores: temperatura · humedad · presión · velocidad · posición · iluminación…</li>
+          <li>La monitorización constante es fundamental para la <strong>toma de decisiones en tiempo real</strong></li>
+        </ul>
+        <div class="ca-nota">🔑 Palabra clave: <strong>SENSORES</strong> — perciben el mundo físico</div>
+      </div>
+
+      <div class="capa-arr">↓</div>
+
+      <!-- CAPA 2: TRANSMISIÓN -->
+      <div class="capa-card cc-trans">
+        <div class="ca-header">
+          <div class="ca-num" style="background:var(--cp2);">2</div>
+          <div class="ca-icon">📶</div>
+          <div>
+            <div class="ca-name">Capa de transmisión</div>
+            <div class="ca-sub">Comunica e intercambia datos entre los componentes del sistema</div>
+          </div>
+        </div>
+        <ul>
+          <li>Garantiza que la información de los sensores llegue a los procesadores de forma eficiente y segura</li>
+          <li><strong>Funciones:</strong> interconexión de componentes · gestión de red · sincronización · seguridad</li>
+        </ul>
+        <p style="font-size:.72rem;font-weight:700;color:var(--cp2);margin:.45rem 0 .3rem;">Tecnologías que incluye</p>
+        <div class="tech-chips">
+          <span class="chip" style="background:rgba(180,83,9,.08);border-color:var(--cp2-b);color:var(--cp2);">🔌 Redes cableadas (Ethernet, fibra óptica)</span>
+          <span class="chip" style="background:rgba(180,83,9,.08);border-color:var(--cp2-b);color:var(--cp2);">📶 Redes inalámbricas (Wi-Fi, Bluetooth, 5G)</span>
+          <span class="chip" style="background:rgba(180,83,9,.08);border-color:var(--cp2-b);color:var(--cp2);">🔒 Cifrado y autenticación</span>
+          <span class="chip" style="background:rgba(180,83,9,.08);border-color:var(--cp2-b);color:var(--cp2);">📡 Protocolos (MQTT, CoAP, HTTP)</span>
+        </div>
+        <div class="ca-nota">🔑 Palabra clave: <strong>COMUNICACIÓN</strong> — mueve los datos de un punto a otro</div>
+      </div>
+
+      <div class="capa-arr">↓</div>
+
+      <!-- CAPA 3: APLICACIÓN -->
+      <div class="capa-card cc-aplic">
+        <div class="ca-header">
+          <div class="ca-num" style="background:var(--cp3);">3</div>
+          <div class="ca-icon">⚙️</div>
+          <div>
+            <div class="ca-name">Capa de aplicación</div>
+            <div class="ca-sub">Procesa los datos y ejecuta acciones mediante <strong>actuadores</strong></div>
+          </div>
+        </div>
+        <ul>
+          <li>Aplica <strong>algoritmos avanzados</strong> (ML, IA) para tomar decisiones informadas</li>
+          <li>Los <strong>actuadores</strong> ejecutan las acciones físicas (encender un motor, ajustar una válvula…)</li>
+          <li>Supervisa continuamente el estado del sistema · Almacena datos históricos · Optimiza procesos</li>
+          <li>Interfaces para el usuario: paneles de control, apps móviles, sistemas <strong>SCADA</strong></li>
+        </ul>
+        <div class="ca-nota">🔑 Palabra clave: <strong>DECISIÓN Y ACCIÓN</strong> — razona y actúa sobre el mundo físico</div>
+      </div>
+
+    </div>
+
+    <!-- Resumen rápido 3 capas -->
+    <div style="margin-top:.85rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.5rem;font-size:.78rem;">
+      <span class="chip" style="background:var(--cp1-l);border-color:var(--cp1-b);color:var(--cp1);">📡 Sensores → Percepción</span>
+      <span style="color:var(--color-text-secondary);">→</span>
+      <span class="chip" style="background:var(--cp2-l);border-color:var(--cp2-b);color:var(--cp2);">📶 Redes y comunicación → Transmisión</span>
+      <span style="color:var(--color-text-secondary);">→</span>
+      <span class="chip" style="background:var(--cp3-l);border-color:var(--cp3-b);color:var(--cp3);">⚙️ Lógica y actuadores → Aplicación</span>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       4. ENTORNOS IT y OT
+  ══════════════════════════════════ -->
+  <div class="sec-title">4 · Entornos IT y OT — diferencias y relación</div>
+
+  <div class="itot-grid" style="margin-bottom:1rem;">
+
+    <div class="itot-half ih-it">
+      <div class="ih-title">💻 Tecnologías de la información (IT)</div>
+      <div class="ih-def">
+        Tecnologías para <strong>recopilar, procesar, almacenar y distribuir información</strong>.
+        Apoyan la administración de recursos, la toma de decisiones y la estrategia empresarial.
+        También llamadas <em>tecnologías de digitalización en negocio</em>.
+      </div>
+      <div class="ih-comp">Componentes principales</div>
+      <div class="comp-list">
+        <div class="comp-item">🖥️ <strong>Infraestructura hardware y software</strong> — servidores, ordenadores, redes, apps</div>
+        <div class="comp-item">🌐 <strong>Redes de comunicación</strong> — LAN, WAN, Wi-Fi, intranet, extranet</div>
+        <div class="comp-item">🗄️ <strong>Sistemas de gestión de datos</strong> — bases de datos, CMS, plataformas analíticas</div>
+        <div class="comp-item">🔐 <strong>Seguridad y protección de datos</strong> — ciberseguridad, privacidad, normativas</div>
+        <div class="comp-item">📊 <strong>Aplicaciones empresariales</strong> — ERP, CRM, herramientas de BI</div>
+      </div>
+      <p style="font-size:.7rem;color:var(--cit);margin-top:.55rem;font-style:italic;">Ej: Microsoft Azure · AWS · Salesforce · SAP · Microsoft 365 · Zoom</p>
+    </div>
+
+    <div class="itot-half ih-ot">
+      <div class="ih-title">⚙️ Tecnologías de operación (OT)</div>
+      <div class="ih-def">
+        Hardware y software dedicados a la <strong>supervisión y control directo de procesos físicos</strong>
+        e industriales. También llamadas <em>tecnologías de digitalización en planta</em>.
+      </div>
+      <div class="ih-comp">Componentes principales</div>
+      <div class="comp-list">
+        <div class="comp-item">🏭 <strong>Sistemas de control industrial</strong> — PLC, DCS, SCADA</div>
+        <div class="comp-item">📡 <strong>Sensores y dispositivos de campo</strong> — captan luz, temperatura, presión, etc.</div>
+        <div class="comp-item">🖥️ <strong>Interfaces HMI</strong> — facilitan la actuación humana sobre los sistemas de control</div>
+        <div class="comp-item">🔌 <strong>Redes industriales</strong> — conectan todos los dispositivos OT</div>
+        <div class="comp-item">🛡️ <strong>Seguridad operativa</strong> — seguridad física y cibernética del sistema</div>
+      </div>
+      <p style="font-size:.7rem;color:var(--cot);margin-top:.55rem;font-style:italic;">Ej: PLCs · SCADA · Sensores industriales · HMI · Redes PROFIBUS</p>
+    </div>
+
+  </div>
+
+  <!-- Relación IT + OT -->
+  <div class="card">
+    <p style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--t1);margin-bottom:.6rem;">
+      🤝 Beneficios de la convergencia IT + OT
+    </p>
+    <div class="relacion-grid">
+      <div class="rel-card"><div class="rel-icon">🔗</div><div class="rel-name">Interconexión</div><div class="rel-desc">Ambas requieren interconexión entre dispositivos; su convergencia hace la gestión más eficiente</div></div>
+      <div class="rel-card"><div class="rel-icon">📊</div><div class="rel-name">Gestión de datos</div><div class="rel-desc">IT trabaja con datos de empresa y operaciones; OT con datos de producción y rendimiento</div></div>
+      <div class="rel-card"><div class="rel-icon">⚡</div><div class="rel-name">Mejora de la eficiencia</div><div class="rel-desc">IT mejora la gestión; OT mejora la producción. Juntas optimizan toda la organización</div></div>
+      <div class="rel-card"><div class="rel-icon">🏭</div><div class="rel-name">Flexibilidad productiva</div><div class="rel-desc">Adaptan los procesos a la demanda cambiante del mercado; ideal en fabricación personalizada</div></div>
+      <div class="rel-card"><div class="rel-icon">😊</div><div class="rel-name">Mejor experiencia del cliente</div><div class="rel-desc">Personalización de productos y comunicación más ágil y fluida con el cliente</div></div>
+      <div class="rel-card"><div class="rel-icon">🛡️</div><div class="rel-name">Seguridad integral</div><div class="rel-desc">Las amenazas cibernéticas requieren trabajo conjunto IT+OT para minimizar riesgos</div></div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════
+       5. ESTRUCTURA EMPRESA DIGITALIZADA
+  ══════════════════════════════════ -->
+  <div class="sec-title">5 · Estructura de la empresa digitalizada</div>
+
+  <div class="card">
+    <p style="font-size:.8rem;line-height:1.55;color:var(--color-text-secondary);margin-bottom:.75rem;">
+      La transformación digital obliga a crear <strong>nuevos departamentos</strong> que se suman a los departamentos tradicionales.
+      El <strong>CTO/CIO</strong> (director de tecnología de la información) es el nuevo rol directivo clave.
+    </p>
+
+    <div class="org-wrap">
+      <div class="org-level ol-trad">
+        <div class="org-label">Departamentos tradicionales (preexistentes)</div>
+        Producción · Compraventa · Recursos humanos · Contabilidad · Marketing
+      </div>
+      <div class="org-connector">+</div>
+      <div class="org-level ol-new">
+        <div class="org-label">Nuevos departamentos digitales (bajo el CTO/CIO)</div>
+        Desarrollo de software · Gestión de datos · Seguridad en la información · Desarrollo web y multimedia · Innovación y estrategia digital · Soporte técnico
+      </div>
+    </div>
+
+    <div style="margin-top:.75rem;background:var(--color-background-secondary);border-radius:9px;padding:.65rem 1rem;font-size:.77rem;line-height:1.5;color:var(--color-text-secondary);">
+      💡 <strong style="color:var(--color-text-primary);">Nota práctica:</strong>
+      En función del tamaño de la empresa, algunos (o todos) estos departamentos digitales pueden ser servicios
+      externalizados a empresas especializadas, no departamentos internos.
+    </div>
+  </div>
+
+
+  <!-- NOTA FINAL -->
+  <div class="nota-global">
+    <strong>⚡ Claves para el examen:</strong>
+    Digitalizar ≠ Transformación digital (digitalizar adapta procesos; TD genera nuevo valor estratégico) ·
+    4ª Revolución = Klaus Schwab · Foro de Davos · 2016 ·
+    CPS = sistemas ciberfísicos: <strong>Percepción</strong> (sensores) → <strong>Transmisión</strong> (redes, comunicación) → <strong>Aplicación</strong> (lógica + actuadores) ·
+    Los <strong>actuadores están en la capa de APLICACIÓN</strong>, no en la de transmisión ·
+    IT = digitalización en negocio (datos, gestión) · OT = digitalización en planta (procesos físicos, producción) ·
+    PLC, DCS, SCADA → tecnologías <strong>OT</strong> · ERP, CRM, BI → tecnologías <strong>IT</strong>
+  </div>
+
+</div>
+</body>
+</html>
