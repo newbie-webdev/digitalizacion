@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digitalización GS — Tests de práctica</title>
+    <link rel="stylesheet" href="estilos.css">
+    <style>
+        body { padding: 2rem 1rem; }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .page-header h1 {
+            font-size: 22px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            margin-bottom: 6px;
+        }
+        .page-header p {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+
+        /* ---- sections ---- */
+        .section-title {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--color-text-secondary);
+            margin-bottom: 1rem;
+            padding-bottom: 8px;
+            border-bottom: 0.5px solid var(--color-border-tertiary);
+        }
+
+        section { margin-bottom: 3rem; }
+
+        /* ---- card grid ---- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        /* ---- practice cards ---- */
+        .card {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: var(--color-background-primary);
+            border: 0.5px solid var(--color-border-tertiary);
+            border-radius: var(--border-radius-lg);
+            padding: 1.25rem;
+            text-decoration: none;
+            color: var(--color-text-primary);
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .card:hover {
+            border-color: var(--color-border-primary);
+            background: var(--color-background-secondary);
+        }
+        .card-dot {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        .card-body { flex: 1; min-width: 0; }
+        .card-label {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 3px;
+        }
+        .card-title {
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+        .card-meta {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        /* tema colours */
+        .t1 .card-dot { background: #E1F5EE; color: #085041; }
+        .t1 .card-label { color: #1D9E75; }
+        .t2 .card-dot { background: #EEEDFE; color: #26215C; }
+        .t2 .card-label { color: #534AB7; }
+        .t3 .card-dot { background: #E6F1FB; color: #042C53; }
+        .t3 .card-label { color: #185FA5; }
+        .t4 .card-dot { background: #FAECE7; color: #4A1B0C; }
+        .t4 .card-label { color: #993C1D; }
+        .t5 .card-dot { background: #EAF3DE; color: #173404; }
+        .t5 .card-label { color: #3B6D11; }
+        .t6 .card-dot { background: #FAEEDA; color: #412402; }
+        .t6 .card-label { color: #854F0B; }
+
+        /* ---- exam cards ---- */
+        .exam-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--color-background-primary);
+            border: 0.5px solid var(--color-border-tertiary);
+            border-radius: var(--border-radius-lg);
+            padding: 1.25rem;
+            text-decoration: none;
+            color: var(--color-text-primary);
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .exam-card:hover {
+            border-color: #2D4E8A;
+            background: var(--color-background-secondary);
+        }
+        .exam-dot {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--border-radius-md);
+            background: #E6F1FB;
+            color: #042C53;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .exam-body { flex: 1; }
+        .exam-label {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #2D4E8A;
+            margin-bottom: 3px;
+        }
+        .exam-title {
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .exam-meta {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-top: 2px;
+        }
+        .exam-arrow {
+            font-size: 18px;
+            color: var(--color-text-secondary);
+        }
+
+        /* ---- info box ---- */
+        .info-box {
+            background: var(--color-background-secondary);
+            border: 0.5px solid var(--color-border-secondary);
+            border-radius: var(--border-radius-md);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.5rem;
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 20px;
+        }
+        .info-item { display: flex; align-items: center; gap: 6px; }
+        .info-pill {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: var(--border-radius-md);
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .pill-ok  { background: #E1F5EE; color: #085041; }
+        .pill-bad { background: #FCEBEB; color: #501313; }
+        .pill-neu { background: var(--color-background-tertiary); color: var(--color-text-secondary); }
+    </style>
+</head>
+<body>
+<div style="max-width:720px; margin:0 auto;">
+
+    <div class="page-header">
+        <h1>Digitalización aplicada a los sectores productivos GS</h1>
+        <p>Tests de práctica y simulaciones de examen</p>
+    </div>
+
+    <section>
+        <div class="section-title">Resumen por temas</div>
+        <div class="card-grid">
+            <a class="card t1" href="resumen/1-resumen.html">
+                <div class="card-dot">T1</div>
+                <div class="card-body">
+                    <div class="card-label">Tema 1</div>
+                    <div class="card-title">Digitalización en los sectores productivos</div>
+                </div>
+            </a>
+            <a class="card t2" href="resumen/2-resumen.html">
+                <div class="card-dot">T2</div>
+                <div class="card-body">
+                    <div class="card-label">Tema 2</div>
+                    <div class="card-title">Tecnologías habilitadoras digitales</div>
+                </div>
+            </a>
+
+            <a class="card t3" href="resumen/3-resumen.html">
+                <div class="card-dot">T3</div>
+                <div class="card-body">
+                    <div class="card-label">Tema 3</div>
+                    <div class="card-title">Cloud y sistemas conectados</div>
+                </div>
+            </a>
+            <a class="card t4" href="resumen/4-resumen.html">
+                <div class="card-dot">T4</div>
+                <div class="card-body">
+                    <div class="card-label">Tema 4</div>
+                    <div class="card-title">La inteligencia artificial</div>
+                </div>
+            </a>
+            <a class="card t5" href="resumen/5-resumen.html">
+                <div class="card-dot">T5</div>
+                <div class="card-body">
+                    <div class="card-label">Tema 5</div>
+                    <div class="card-title">Evaluación de los datos</div>
+                </div>
+            </a>
+            <a class="card t6" href="resumen/6-resumen.html">
+                <div class="card-dot">T6</div>
+                <div class="card-body">
+                    <div class="card-label">Tema 6</div>
+                    <div class="card-title">Desarrollo de un proyecto de transformación digital</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- TESTS DE PRÁCTICA -->
+    <section>
+        <div class="section-title">Tests de práctica por tema</div>
+        <div class="card-grid">
+
+            <a class="card t1" href="test-por-temas/1-digitalizacion-sectores-productivos.html">
+                <div class="card-dot">T1</div>
+                <div class="card-body">
+                    <div class="card-label">Tema 1</div>
+                    <div class="card-title">Digitalización en los sectores productivos</div>
+                    <div class="card-meta">20 preguntas · feedback inmediato</div>
+                </div>
+            </a>
+
+            <a class="card t2" href="test-por-temas/2-tecnologias-habilitadoras-digitales.html">
+                <div class="card-dot">T2</div>
+                <div class="card-body">
+                    <div class="card-label">Tema 2</div>
+                    <div class="card-title">Tecnologías habilitadoras digitales</div>
+                    <div class="card-meta">20 preguntas · feedback inmediato</div>
+                </div>
+            </a>
+
+            <a class="card t3" href="test-por-temas/3-cloud_sistemas_conectados.html">
+                <div class="card-dot">T3</div>
+                <div class="card-body">
+                    <div class="card-label">Tema 3</div>
+                    <div class="card-title">Cloud y sistemas conectados</div>
+                    <div class="card-meta">20 preguntas · feedback inmediato</div>
+                </div>
+            </a>
+
+            <a class="card t4" href="test-por-temas/4-inteligencia_artificial.html">
+                <div class="card-dot">T4</div>
+                <div class="card-body">
+                    <div class="card-label">Tema 4</div>
+                    <div class="card-title">La inteligencia artificial</div>
+                    <div class="card-meta">20 preguntas · feedback inmediato</div>
+                </div>
+            </a>
+
+            <a class="card t5" href="test-por-temas/5-evaluacion-datos.html">
+                <div class="card-dot">T5</div>
+                <div class="card-body">
+                    <div class="card-label">Tema 5</div>
+                    <div class="card-title">Evaluación de los datos</div>
+                    <div class="card-meta">20 preguntas · feedback inmediato</div>
+                </div>
+            </a>
+
+            <a class="card t6" href="test-por-temas/6-transformacion_digital.html">
+                <div class="card-dot">T6</div>
+                <div class="card-body">
+                    <div class="card-label">Tema 6</div>
+                    <div class="card-title">Desarrollo de un proyecto de transformación digital</div>
+                    <div class="card-meta">20 preguntas · feedback inmediato</div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- SIMULACIONES DE EXAMEN -->
+    <section>
+        <div class="section-title">Simulaciones de examen</div>
+
+        <div class="info-box">
+            <div class="info-item">48 preguntas (examen completo) (T1–T6)</div>
+            <div class="info-item"><span class="info-pill pill-ok">+0,2083 correcta</span></div>
+            <div class="info-item"><span class="info-pill pill-bad">−0,0521 incorrecta</span></div>
+            <div class="info-item"><span class="info-pill pill-neu">0 en blanco</span></div>
+            <div class="info-item">El resultado se muestra al finalizar</div>
+        </div>
+
+        <div class="card-grid">
+
+            <a class="exam-card" href="modelo-examen/1-modelo-examen.html">
+                <div class="exam-dot">M1</div>
+                <div class="exam-body">
+                    <div class="exam-label">Simulación</div>
+                    <div class="exam-title">Modelo 1</div>
+                    <div class="exam-meta">48 preguntas · temas 1–6</div>
+                </div>
+                <span class="exam-arrow">→</span>
+            </a>
+
+            <a class="exam-card" href="modelo-examen/2-modelo-examen.html">
+                <div class="exam-dot">M2</div>
+                <div class="exam-body">
+                    <div class="exam-label">Simulación</div>
+                    <div class="exam-title">Modelo 2</div>
+                    <div class="exam-meta">48 preguntas · temas 1–6</div>
+                </div>
+                <span class="exam-arrow">→</span>
+            </a>
+
+            <a class="exam-card" href="modelo-examen/3-modelo-examen.html">
+                <div class="exam-dot">M3</div>
+                <div class="exam-body">
+                    <div class="exam-label">Simulación</div>
+                    <div class="exam-title">Modelo 3</div>
+                    <div class="exam-meta">48 preguntas · temas 1–6</div>
+                </div>
+                <span class="exam-arrow">→</span>
+            </a>
+
+            <a class="exam-card" href="modelo-examen/4-modelo-examen.html">
+                <div class="exam-dot">M4</div>
+                <div class="exam-body">
+                    <div class="exam-label">Simulación</div>
+                    <div class="exam-title">Modelo 4</div>
+                    <div class="exam-meta">48 preguntas · temas 1–6</div>
+                </div>
+                <span class="exam-arrow">→</span>
+            </a>
+
+        </div>
+    </section>
+
+</div>
+</body>
+</html>
